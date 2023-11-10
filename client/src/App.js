@@ -1,22 +1,21 @@
+import React from 'react';
 import './App.css';
+import ErrorBoundary from './components/ErrorBoundary/';
+import Navbar from './components/Navbar/';
+import { BrowserRouter as Router} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    /* Error Handling */
+    <ErrorBoundary>
+    
+    {/* Call Navbar components library */}
+    <Router>
+      <Navbar />
+    </Router>
+    
+  {/* End of Error Handling */}
+    </ErrorBoundary>
   );
 }
 
