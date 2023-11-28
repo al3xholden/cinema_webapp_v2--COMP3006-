@@ -1,8 +1,21 @@
-import React from 'react'
-import { FaBars } from 'react-icons/fa'
-import { Nav, NavContainer, NavLogo, MenuIcon, NavMenu , NavItem, NavLinks, NavBtn, NavBtnLink, section, section1} from './NavbarElements.js'
+import React from 'react';
+import { FaBars } from 'react-icons/fa';
+import { 
+  Nav, 
+  NavContainer, 
+  NavLogo, 
+  MenuIcon, 
+  NavMenu , 
+  NavItem, 
+  NavLinks, 
+  NavBtn, 
+  NavBtnLink, 
+  section, 
+  section1
 
-const Navbar = () => {
+} from './NavbarElement.js';
+
+const Navbar = ({ toggle }) => {
   return (
 
     <>
@@ -14,24 +27,21 @@ const Navbar = () => {
           
 
           {/* Navbar Menu Icon */}
-          <MenuIcon>
+          <MenuIcon onClick={toggle}>
             <FaBars />
           </MenuIcon>
-
-          {/* Book Now Button */}
-
-          
 
           {/* Navbar Menu Content */}
           <NavMenu>
 
-          <NavBtn>
-            <NavBtnLink to="/booknow">BOOK NOW</NavBtnLink>
-          </NavBtn>
+            {/* Navbar Menu Book Now Button */}
+            <NavBtn>
+              <NavBtnLink to="/booknow">BOOK NOW</NavBtnLink>
+            </NavBtn>
 
-
+            {/* Navbar Menu Links */}
             <NavItem>
-              <NavLinks to="section1">WHATS ON</NavLinks>
+              <NavLinks to="section1">WHAT'S ON</NavLinks>
             </NavItem>
 
             <NavItem>
@@ -45,10 +55,6 @@ const Navbar = () => {
 
         </NavContainer>
     </Nav>
-
-    <section id="section1">
-
-    </section>
     </>
   )
 }

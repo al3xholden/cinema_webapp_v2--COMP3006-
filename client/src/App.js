@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import ErrorBoundary from './components/ErrorBoundary/';
-import Navbar from './components/Navbar/';
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -11,7 +11,8 @@ function App() {
     
     {/* Call Navbar components library */}
     <Router>
-      <Navbar />
+      <Home />
+    
     </Router>
     
   {/* End of Error Handling */}

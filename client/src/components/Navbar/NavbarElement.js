@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Link as LinkRouter } from 'react-router-dom'
-import { Link as LinkScroll } from 'react-scroll'
+import { Link as LinkRouter } from 'react-router-dom';
+import { Link as LinkScroll } from 'react-scroll';
 
 export const Nav = styled.nav `
 background: #000;
@@ -13,13 +13,13 @@ top: 0;
 z-index: 10;
 transition: all 0.8s ease-in-out; 
 
-@media screen and (max-width: 960px) { 
+@media screen and (max-width: 700px) { 
     height: 80px; 
 } 
 `;
 
 export const NavContainer = styled.div`
-display: flex;
+display: flex; 
 justify-content: space-between;
 height: 50px;
 z-index: 1;
@@ -28,7 +28,7 @@ padding: 0 25px 0 0px;
 max-width: 1100px;
 transition: all 0.8s ease-in-out; 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 700px) {
     height: 80px;
 }
 `;
@@ -60,9 +60,9 @@ export const MenuIcon = styled.div`
 display:none;
 transition: all 0.2s ease-in-out;
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 700px) {
     display: block;
-    position: absolute;
+    position: absolute; 
     top: 25px;
     right: 30px;
     transform: translate(-100, 60%);
@@ -83,14 +83,14 @@ list-style: none
 text-align: center;
 margin-right: 5px;
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 700px) {
     display: none;  
 }
 `;
 
 export const NavItem = styled.li`
 height: 80px;
-`
+`;
 
 export const NavLinks = styled(LinkScroll)`
 color: #fff;
@@ -119,7 +119,7 @@ display: flex;
 align-items: center;
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 700px) {
     display: none;
 }
 `;
@@ -139,7 +139,6 @@ border: none;
 cursor: pointer;
 text-decoration: none;
 transition: all 0.2s ease-in-out;
-
 
 &:hover {
     all 0.2s ease-in-out;
