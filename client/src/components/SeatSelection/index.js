@@ -30,19 +30,21 @@ const SeatSelection = ({ selectedmovie, onSeatSelect }) => {
     onSeatSelect(newSelectedSeats); // Notify parent component about seat selection
   };
 
+  const isSelected = (seatId) => selectedSeats.includes(seatId);
+
   return (
     <div>
       <h2>Seat Selection for {selectedmovie}</h2>
-      <div className="seat-container" style={{backgroundColor:'red'}}>
+      <div className="seat-container" style={{ backgroundColor: 'red' }}>
         {availableSeats.map((seat) => (
           <div
             key={seat.id}
-            className={`seat ${selectedSeats.includes(seat.id) ? 'selected' : ''}`}
+            className={`seat ${isSelected(seat.id) ? 'selected' : ''}`}
             onClick={() => handleSeatClick(seat.id)}
             style={{
-              color:'black',
+              color: 'black',
               fontWeight: 'bold',
-              backgroundColor:'white',
+              backgroundColor: isSelected(seat.id) ? 'red' : 'white',
             }}
           >
             {seat.label}

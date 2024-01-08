@@ -11,7 +11,7 @@ import {
   BookNowBtn,
   SelectATime,
   SelectASeat,
-  MyTicket
+  MyTicket,
 } from './BookNowElements';
 import List from '../../components/List';
 import SeatSelection from '../../components/SeatSelection';
@@ -30,11 +30,18 @@ const MovieProvider = ({ children }) => {
 
 const BookNow = () => {
   const [isopen, setIsOpen] = useState(false);
-  const { selectedmovie, setSelectedMovie } = useContext(MovieContext);
+  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
   const [timeSlotsStyle, setTimeSlotsStyle] = useState({ display: 'none' });
+  const [seatSlotsStyle, setSeatSlotsStyle] = useState({ display: 'none' });
+  const [myTicketSlotsStyle, setMyTicketSlotsStyle] = useState({ display: 'none' });
+  const [isSeatSelectionVisible, setIsSeatSelectionVisible] = useState(false);
+  const [isMyTicketVisible, setIsMyTicketVisible] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
+  const [email, setEmail] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  
 
   const handleSeatSelect = (seats) => {
     console.log('Got the selected seat:', seats);
@@ -59,13 +66,15 @@ const BookNow = () => {
   const TimeSelector = () => {
     return (
       <div>
-        <Showings selectedmovie={selectedmovie} onSelect={handleTimeSelect} />
+        <Showings selectedMovie={selectedMovie} onSelect={handleTimeSelect} />
       </div>
     );
   };
 
   const handleButtonClick = () => {
     setTimeSlotsStyle({ display: 'inline-block' });
+    setSeatSlotsStyle({ display: 'inline-block' });
+    setMyTicketSlotsStyle({ display: 'inline-block' });
   };
 
   const toggle = () => {
@@ -75,6 +84,21 @@ const BookNow = () => {
   const handleMovieSelect = (movie) => {
     console.log('Selected Movie:', movie);
     setSelectedMovie(movie);
+
+    // Add the logic to adjust the styles of the selected movie element
+    const movieElements = document.querySelectorAll('.movie-item');
+    movieElements.forEach((element) => {
+      const movieId = element.getAttribute('data-movie-id');
+      if (movieId === movie.id) {
+        // Apply styles to the selected movie
+        element.style.transform = 'translateY(-5px)'; 
+        element.style.opacity = '0.8'; 
+      } else {
+        // Reset styles for other movies
+        element.style.transform = 'translateY(0)';
+        element.style.opacity = '1';
+      }
+    });
   };
 
   const handleTimeSelect = (time) => {
@@ -85,6 +109,31 @@ const BookNow = () => {
   const handleSeatSelection = (seat) => {
     console.log('Selected Seat:', seat);
     setSelectedSeat(seat);
+  };
+
+  const handleEmailChange = (e) => {
+    const inputEmail = e.target.value;
+    setEmail(inputEmail);
+
+    // Validate the email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(emailRegex.test(inputEmail));
+  };
+
+  const handleSubmit = () => {
+    // Check if the email is valid before saving to MongoDB
+    if (isValidEmail) {
+      // TODO: I need to Save the data to MongoDB 
+      console.log('Saving to MongoDB:', {
+        selectedMovie,
+        selectedTime,
+        selectedSeats,
+        email,
+      });
+    } else {
+      // Handle invalid email
+      alert('Invalid email. Please enter a valid email address.');
+    }
   };
 
   useEffect(() => {
@@ -112,36 +161,52 @@ const BookNow = () => {
             <div>
               <List onMovieSelect={handleMovieSelect} />
 
-              {selectedmovie && <SeatSelection selectedMovie={selectedmovie} onSeatSelect={handleSeatSelection} />}
-
               <BookNowBtn>
                 <Link to="selectatime" smooth="true" duration="600">
-                  <BookNowBtnLink onClick={handleButtonClick}>
-                    BOOK NOW
-                  </BookNowBtnLink>
+                  <BookNowBtnLink onClick={handleButtonClick}>BOOK NOW</BookNowBtnLink>
                 </Link>
               </BookNowBtn>
             </div>
           </MovieSelection>
         </MovieProvider>
 
-        <SelectATime id='selectatime' style={timeSlotsStyle} selectedMovie={selectedmovie}>
+        <SelectATime id="selectatime" style={timeSlotsStyle} selectedMovie={selectedMovie}>
           <Title> SELECT A TIME SLOT </Title>
           <TimeSelector />
         </SelectATime>
 
-        <SelectASeat id='selectaseat'>
+        <SelectASeat id="selectaseat" style={seatSlotsStyle}>
           <Title> SELECT A SEAT </Title>
-          <SeatSelection selectedMovie={selectedmovie} onSeatSelect={handleSeatSelection} />
+          <SeatSelection selectedMovie={selectedMovie} onSeatSelect={handleSeatSelection} />
         </SelectASeat>
 
-        <MyTicket style={{ backgroundColor: '#0A0A0A', top: '1500px', height: '500px', color: 'white' }}>
+        <MyTicket style={{ ...myTicketSlotsStyle, backgroundColor: '#0A0A0A', top: '1500px', height: '500px', color: 'white' }}>
           <Title> TICKET CONFIRMATION</Title>
-
           <div>
-            <p>Selected Movie: {selectedmovie}</p>
+            <p>Selected Movie: {selectedMovie ? selectedMovie.name : 'Not selected'}</p>
             <p>Selected Time: {selectedTime}</p>
-            <p>Selected Seat Numbers: {selectedSeat}</p>
+            <p>Selected Seat Numbers: {selectedSeat ? selectedSeat.join(', ') : 'Not selected'} </p>
+            <input
+              type="text"
+              placeholder="Enter your email"
+              value={email}
+              onChange={handleEmailChange}
+              style={{
+                width: '80%',
+                padding: '10px',
+                margin: '10px auto',
+                textAlign: 'center',
+                border:'10px 10px 10px 10px',
+                borderBlockWidth: '5px',
+                borderColor: isValidEmail ? 'green' : 'red',
+                backgroundColor:'white',
+                color:'black',
+                fontWeight:'bold'
+              }}
+            />
+            <button onClick={handleSubmit} style={{ padding: '10px', width: '80%', margin: '10px auto', backgroundColor:'white'}}>
+              Save to MongoDB / Payment
+            </button>
           </div>
         </MyTicket>
 

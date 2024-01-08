@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import dune from '../../assets/images/dune.jpg';
 import avengers from '../../assets/images/avengers.png';
 import oppen from '../../assets/images/oppen.jpg';
 import wonka from '../../assets/images/wonkagifposter.gif';
+import MovieContext from '../../contexts/MovieContext';
 import './List.css';
 
 
 
-const List = () => {
-  const [selectedmovie, setSelectedMovie] = useState(null);
+const List = ({ onMovieSelect }) => {
+  const { selectedMovie } = useContext(MovieContext);
 
-  const movie = [
+
+  const movies = [
     { 
       id: 'dune', 
       name: 'DUNE: PART 1', 
@@ -103,81 +105,80 @@ const List = () => {
   ];
 
   const selectMovie = (movie) => {
-    console.log('Selected Movie:', movie); 
-    setSelectedMovie(movie);
-    
-   
+    console.log('Selected Movie:', movie);
+    onMovieSelect(movie); 
   };
 
+ 
   return (
     <div className="list-container">
       <ul className="item-list">
-        {movie.map((movie, index) => (
-          <li key={index} onClick={() => selectMovie(movie)} className={selectedmovie === movie ? 'selected' : ''}>
-            
-
-            <img 
+        {movies.map((movie, index) => (
+          <li
+            key={index}
+            onClick={() => selectMovie(movie)}
+            className={selectedMovie && selectedMovie.id === movie.id ? 'selected' : ''}
+          >
+            <img
               src={movie.image}
               alt={movie.name}
               draggable="false"
-              style={{ width: '130px', height: '170px',
-                 ...(selectedmovie && selectedmovie.id === movie.id ? { width: '120px', height: '160px', marginTop: '-40px'} : {})}}
-              onClick={() => selectMovie(movie)} />
-
-
-      
+              style={{
+                width: '130px',
+                height: '170px',
+                ...(selectedMovie && selectedMovie.id === movie.id
+                  ? { width: '120px', height: '160px', marginTop: '-40px' }
+                  : {}),
+              }}
+            />
             <p>{movie.name}</p>
-
-            
           </li>
         ))}
       </ul>
-      <div className="selected-item">
-        {selectedmovie ? ( <> <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '20px' }}>
       
-      <img
-        src={selectedmovie.image}
-        alt={selectedmovie.name}
-        draggable="false"
-        style={{
-          width: '110px',
-          height: '150px',
-          listStyleType: 'none',
-          marginLeft: '16.5px',
-          marginRight: '18.5px',
-           
-        }}
-      />
-
-      <div style={{marginTop: '10px'}}>
-        <p>
-          <span style={{ fontSize: '13px', letterSpacing: '1.5px', fontWeight: 'bold' }}>MOVIE TITLE: </span>
-          <span style={{ fontSize: '10px', letterSpacing: '4.9px', fontWeight: 'bold' }}>{selectedmovie.name}</span>
-        </p>
-
-        <p>
-          <span style={{ fontSize: '13px', letterSpacing: '1.5px', fontWeight: 'bold' }}>RATING: </span>
-          <span style={{ fontSize: '10px', letterSpacing: '4.9px', fontWeight: 'bold' }}>{selectedmovie.rating}</span>
-        </p>
-
-        <p>
-          <span style={{ fontSize: '13px', letterSpacing: '1.5px', fontWeight: 'bold' }}><b><i>ABOUT</i></b>: </span>
-          <span style={{ fontSize: '11px', fontWeight: 'none' }}>{selectedmovie.about}</span>
-        </p>
-      </div>
-    </div>
-  </>
-) : ''}
-
-
-
+      <div className="selected-item">
+        {selectedMovie && (
+          <>
+            <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '20px' }}>
+              <img
+                src={selectedMovie.image}
+                alt={selectedMovie.name}
+                draggable="false"
+                style={{
+                  width: '110px',
+                  height: '150px',
+                  listStyleType: 'none',
+                  marginLeft: '16.5px',
+                  marginRight: '18.5px',
+                }}
+              />
+              <div style={{ marginTop: '10px' }}>
+                <p>
+                  <span style={{ fontSize: '13px', letterSpacing: '1.5px', fontWeight: 'bold' }}>MOVIE TITLE: </span>
+                  <span style={{ fontSize: '10px', letterSpacing: '4.9px', fontWeight: 'bold' }}>
+                    {selectedMovie.name}
+                  </span>
+                </p>
+                <p>
+                  <span style={{ fontSize: '13px', letterSpacing: '1.5px', fontWeight: 'bold' }}>RATING: </span>
+                  <span style={{ fontSize: '10px', letterSpacing: '4.9px', fontWeight: 'bold' }}>{selectedMovie.rating}</span>
+                </p>
+                <p>
+                  <span style={{ fontSize: '13px', letterSpacing: '1.5px', fontWeight: 'bold' }}>
+                    <b>
+                      <i>ABOUT</i>
+                    </b>
+                    :{' '}
+                  </span>
+                  <span style={{ fontSize: '11px', fontWeight: 'none' }}>{selectedMovie.about}</span>
+                </p>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
-
-
-
-
 
 export default List;
