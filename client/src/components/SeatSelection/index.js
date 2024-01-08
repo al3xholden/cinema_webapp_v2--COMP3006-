@@ -41,7 +41,7 @@ const SeatSelection = ({ selectedmovie, onSeatSelect }) => {
             onClick={() => handleSeatClick(seat.id)}
             style={{
               color:'black',
-              fontWeight:'bold',
+              fontWeight: 'bold',
               backgroundColor:'white',
             }}
           >

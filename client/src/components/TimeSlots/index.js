@@ -1,14 +1,6 @@
 import React from 'react';
 
-import { ShowingsData } from './TimeSlotsElements.js'
-
-
-const Showings = React.memo (({ selectedmovie }) => {
-
-  if (!selectedmovie==null) {
-    console.log("NULL!!!")
-  }
-
+const Showings = React.memo(({ selectedmovie, onSelect }) => {
   // Example showings data, replace this with your actual data
   const showingsData = [
     { time: '10:00 AM', title: 'MORNING' },
@@ -28,41 +20,31 @@ const Showings = React.memo (({ selectedmovie }) => {
     margin: '5px',
     marginLeft: '5px', // Reset left margin
     marginRight: 'auto', // Reset right margin
-
   };
-  
 
   const textStyle = {
     color: 'white',
-    justifyContent: 'center', 
-    alignItems: 'center', 
+    justifyContent: 'center',
+    alignItems: 'center',
   };
-
-  const TimeSelector = ({ selectedMovie, onSelect }) => {
-    console.log('Selected Movie in TimeSelector:', selectedMovie);
-    const movieShowings = showingsData[selectedMovie] || [];
-    console.log('Movie Showings in TimeSelector:', movieShowings);
-  
-    return (
-      <div>
-        <Showings selectedMovie={selectedMovie} onSelect={onSelect} />
-      </div>
-    );
-  };
-  
 
   return (
     <div>
       <h2 style={textStyle}>Showings for {selectedmovie?.name}</h2>
-      <div style={{ display: 'flex',}}>
-        {showingsData.map((showing, index) => (
-          <button key={index} to="#selectaseat" smooth={true} duration={600} style={buttonStyle} >
-            {showing.title}
-            <br/>
-            {showing.time}
-          </button>
-        ))}
-      </div>
+      {showingsData.map((showing, index) => (
+        <button
+          key={index}
+          onClick={() => onSelect(showing.time)} // Pass the selected time to onSelect
+          to="#selectaseat"
+          smooth="true"
+          duration={600}
+          style={buttonStyle}
+        >
+          {showing.title}
+          <br />
+          {showing.time}
+        </button>
+      ))}
     </div>
   );
 });

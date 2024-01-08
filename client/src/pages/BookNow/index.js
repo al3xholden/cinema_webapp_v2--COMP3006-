@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-scroll';
 import Sidemenu from '../../components/Preloader/Sidemenu';
 import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import {
   PageContainer,
   PreFooter,
@@ -16,8 +14,8 @@ import {
   MyTicket
 } from './BookNowElements';
 import List from '../../components/List';
-import Showings from '../../components/TimeSlots';
 import SeatSelection from '../../components/SeatSelection';
+import Showings from '../../components/TimeSlots';
 import MovieContext from '../../contexts/MovieContext.js';
 
 const MovieProvider = ({ children }) => {
@@ -35,8 +33,8 @@ const BookNow = () => {
   const { selectedmovie, setSelectedMovie } = useContext(MovieContext);
   const [timeSlotsStyle, setTimeSlotsStyle] = useState({ display: 'none' });
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [selectedTime, setSelectedTime] = useState(null); // State for selected time
-  const [selectedSeat, setSelectedSeat] = useState(null); // State for selected seat
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedSeat, setSelectedSeat] = useState(null);
 
   const handleSeatSelect = (seats) => {
     console.log('Got the selected seat:', seats);
@@ -58,14 +56,10 @@ const BookNow = () => {
     ],
   };
 
-  const TimeSelector = ({ selectedmovie }) => {
-    console.log('Selected Movie in TimeSelector:', selectedmovie);
-    const movieShowings = showingsData[selectedmovie] || [];
-    console.log('Movie Showings in TimeSelector:', movieShowings);
-
+  const TimeSelector = () => {
     return (
       <div>
-        <Showings selectedMovie={selectedmovie} />
+        <Showings selectedmovie={selectedmovie} onSelect={handleTimeSelect} />
       </div>
     );
   };
@@ -106,12 +100,6 @@ const BookNow = () => {
     };
   }, []);
 
-
-  if (!selectedTime) { console.log("selectedTime not received"); }
-  if (!selectedSeat) { console.log("selectedTime not received"); }
-  if (!selectedmovie) { console.log("selectedTime not received"); }
-
-
   return (
     <PageContainer>
       <>
@@ -122,14 +110,14 @@ const BookNow = () => {
           <MovieSelection id="movieSelection">
             <Title> SELECT A MOVIE </Title>
             <div>
-              <List onMovieSelect={handleMovieSelect} selectedMovie={selectedmovie} />
+              <List onMovieSelect={handleMovieSelect} />
 
               {selectedmovie && <SeatSelection selectedMovie={selectedmovie} onSeatSelect={handleSeatSelection} />}
 
               <BookNowBtn>
-                <Link to="selectatime" smooth={true} duration={600}>
+                <Link to="selectatime" smooth="true" duration="600">
                   <BookNowBtnLink onClick={handleButtonClick}>
-                    BOOK NOW 
+                    BOOK NOW
                   </BookNowBtnLink>
                 </Link>
               </BookNowBtn>
@@ -139,30 +127,23 @@ const BookNow = () => {
 
         <SelectATime id='selectatime' style={timeSlotsStyle} selectedMovie={selectedmovie}>
           <Title> SELECT A TIME SLOT </Title>
-          <TimeSelector style={timeSlotsStyle} onSelect={handleTimeSelect} />
+          <TimeSelector />
         </SelectATime>
 
-
-        <SelectASeat id='selectaseat' >
+        <SelectASeat id='selectaseat'>
           <Title> SELECT A SEAT </Title>
-          <SeatSelection />
-          
-          <div>
-            {selectedmovie && ( 
-            <SeatSelection selectedMovie={selectedmovie} onSeatSelect={handleSeatSelect} />)}
-          </div>
+          <SeatSelection selectedMovie={selectedmovie} onSeatSelect={handleSeatSelection} />
         </SelectASeat>
 
-
-        <MyTicket style={{ backgroundColor: '#0A0A0A', top: '1500px', height: '500px', color: 'white'}}>
+        <MyTicket style={{ backgroundColor: '#0A0A0A', top: '1500px', height: '500px', color: 'white' }}>
           <Title> TICKET CONFIRMATION</Title>
+
           <div>
             <p>Selected Movie: {selectedmovie}</p>
             <p>Selected Time: {selectedTime}</p>
-            <p>Selected Seat: {selectedSeat}</p>
-            </div>
+            <p>Selected Seat Numbers: {selectedSeat}</p>
+          </div>
         </MyTicket>
-
 
         <PreFooter style={{ height: '400px' }}></PreFooter>
         <PreFooter style={{ height: '150px' }}></PreFooter>
