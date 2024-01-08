@@ -3,19 +3,22 @@ import { Link as LinkRouter } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
 
 export const Nav = styled.nav `
-background: #000;
-height: 50px;
+background: #0A0A0A;
+height: 68px;
 display: flex;
 justify-content: center;
 align-items: center;
 position: sticky;
+
 top: 0;
 z-index: 10;
 transition: all 0.8s ease-in-out; 
 
-@media screen and (max-width: 700px) { 
-    height: 80px; 
+@media screen and (max-width: 640px) { 
+    height: 65px; 
 } 
+
+
 `;
 
 export const NavContainer = styled.div`
@@ -25,12 +28,13 @@ height: 50px;
 z-index: 1;
 width: 100%;
 padding: 0 25px 0 0px;
-max-width: 1100px;
+max-width: 830px;
 transition: all 0.8s ease-in-out; 
 
-@media screen and (max-width: 700px) {
-    height: 80px;
+@media screen and (max-width: 640px) {
+    height: 65px;
 }
+
 `;
 
 export const NavLogo = styled(LinkRouter)`
@@ -41,11 +45,13 @@ font-size: 14px;
 display: flex;
 align-items: center;
 margin-left: 33px;
+margin-top: 4.5px;
 font-weight: bold;
 text-decoration: none;
 transition: all 0.8s ease-in-out; 
 
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 640px) {
     font-size: 15px;
     margin-left: 30px;
 }
@@ -57,23 +63,24 @@ transition: all 0.8s ease-in-out;
 
 
 export const MenuIcon = styled.div`
-display:none;
-transition: all 0.2s ease-in-out;
+  display: none;
+  user-select: none;
+  transition: all 0.2s ease-in-out;
 
-@media screen and (max-width: 700px) {
+  @media screen and (max-width: 640px) {
     display: block;
-    position: absolute; 
+    position: absolute;
     top: 25px;
-    right: 30px;
-    transform: translate(-100, 60%);
-    font-size: 1.8rem;
+    right: 35px;
+    transform: translate(-5%, 5%); /* Fix: Add the percentage sign after -100 */
+    font-size: 1.35rem;
     cursor: pointer;
     color: white;
-}
+  }
 
-&:hover {
+  &:hover {
     color: #1170BE;
-}
+  }
 `;
 
 export const NavMenu = styled.div`
@@ -81,15 +88,20 @@ display: flex;
 align-items: center;
 list-style: none
 text-align: center;
-margin-right: 5px;
+margin-right: -10px;
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 640px) {
     display: none;  
+    
 }
 `;
 
 export const NavItem = styled.li`
-height: 80px;
+height: 73px;
+background-color: transparent;
+
+
+
 `;
 
 export const NavLinks = styled(LinkScroll)`
@@ -102,6 +114,7 @@ height: 44px;
 cursor: pointer;
 font-weight: bold;
 font-size: 11.5px;
+user-select: none;
 
 &.active {
     border-bottom: 2px solid white;
@@ -109,23 +122,23 @@ font-size: 11.5px;
 }
 
 &:hover {
-    border-bottom: 2px solid;
-    border-color: #1170BE;
+    color: #1170BE;
 }
 `;
 
 export const NavBtn = styled.nav`
 display: flex;
 align-items: center;
+user-select: none;
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 640px) {
     display: none;
 }
 `;
 
 export const NavBtnLink = styled(LinkRouter) `
-border-radius: 10px;
+border-radius: 3px;
 margin-right: 10px;
 background: white;
 white-space: nowrap:

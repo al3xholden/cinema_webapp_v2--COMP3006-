@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
+
 import { 
   Nav, 
   NavContainer, 
@@ -9,9 +11,7 @@ import {
   NavItem, 
   NavLinks, 
   NavBtn, 
-  NavBtnLink, 
-  section, 
-  section1
+  NavBtnLink
 
 } from './NavbarElement.js';
 
@@ -21,38 +21,23 @@ const Navbar = ({ toggle }) => {
     <>
     <Nav>
         <NavContainer>
-
           {/* Navbar Logo */}
-          <NavLogo to="/"> V I S I O N </NavLogo> 
-          
-
+          <NavLogo to="/"> V I S I O N  | CINEMA</NavLogo> 
           {/* Navbar Menu Icon */}
-          <MenuIcon onClick={toggle}>
-            <FaBars />
+          <MenuIcon >
+            <FaBars onClick={toggle}/>
           </MenuIcon>
-
           {/* Navbar Menu Content */}
           <NavMenu>
-
             {/* Navbar Menu Book Now Button */}
             <NavBtn>
-              <NavBtnLink to="/booknow">BOOK NOW</NavBtnLink>
+              <NavBtnLink to="/booknow" >BOOK NOW</NavBtnLink>
             </NavBtn>
-
-            {/* Navbar Menu Links */}
-            <NavItem>
-              <NavLinks to="section1">WHAT'S ON</NavLinks>
-            </NavItem>
-
-            <NavItem>
-              <NavLinks to="section2">COMING SOON</NavLinks>
-            </NavItem>
-
-            <NavItem>
-              <NavLinks to="section3">LOCATIONS </NavLinks>
-            </NavItem>
+            {/* Navbar Menu Links */}          
+            <NavLinks to="whatson" smooth={true} duration={800} offset={-72}>WHAT'S ON</NavLinks>
+            <NavLinks to="comingsoon" smooth={true} duration={800} offset={-50}>COMING SOON</NavLinks>
+            <NavLinks to="locations" smooth={true} duration={800} offset={-50}>LOCATIONS </NavLinks>
           </NavMenu>
-
         </NavContainer>
     </Nav>
     </>
