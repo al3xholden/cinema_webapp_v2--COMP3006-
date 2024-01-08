@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Showings = React.memo(({ selectedmovie, onSelect }) => {
-  // Example showings data, replace this with your actual data
   const showingsData = [
     { time: '10:00 AM', title: 'MORNING' },
     { time: '1:00 PM', title: 'AFTERNOON' },
@@ -18,8 +17,8 @@ const Showings = React.memo(({ selectedmovie, onSelect }) => {
     padding: '13px 38px 13px 38px',
     cursor: 'pointer',
     margin: '5px',
-    marginLeft: '5px', // Reset left margin
-    marginRight: 'auto', // Reset right margin
+    marginLeft: '5px', 
+    marginRight: 'auto', 
   };
 
   const textStyle = {

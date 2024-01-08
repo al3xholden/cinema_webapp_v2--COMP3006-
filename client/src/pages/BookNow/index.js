@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-scroll';
-import Sidemenu from '../../components/Preloader/Sidemenu';
+import Sidemenu from '../../components/Sidemenu';
 import Navbar from '../../components/Navbar';
 import {
   PageContainer,

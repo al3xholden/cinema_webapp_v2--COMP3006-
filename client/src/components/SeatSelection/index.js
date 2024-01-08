@@ -6,8 +6,6 @@ const SeatSelection = ({ selectedmovie, onSeatSelect }) => {
 
   // Simulate fetching available seats based on the selected movie
   useEffect(() => {
-    // In a real-world scenario, you would fetch available seats for the selected movie from an API
-    // For now, let's assume 20 seats are available for each movie
     const newAvailableSeats = Array.from({ length: 20 }, (_, index) => ({
       id: index + 1,
       label: `Seat ${index + 1}`,

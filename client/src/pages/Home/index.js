@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import Sidemenu from '../../components/Preloader/Sidemenu';
+import Sidemenu from '../../components/Sidemenu';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { PageContainer, PreFooter, Imgbox, WhatsOn, ComingSoon, Locations, Title, Text, LocationButton, MovieBox, MovieTitle } from './HomeElements';
@@ -45,8 +45,6 @@ const Home = () => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
 
-    // Optionally, you can listen for changes in the route and scroll to the top
-    // when the route changes (for example, when navigating to a new page)
     const handleRouteChange = () => {
       window.scrollTo(0, 0);
     };
